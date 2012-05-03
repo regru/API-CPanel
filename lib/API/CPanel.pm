@@ -198,6 +198,8 @@ sub mk_query_to_server {
     warn "Auth hash: $auth_hash\nQuery string: $query_string\n" if $DEBUG;
 
     my $ua = LWP::UserAgent->new;
+    $ua->ssl_opts( verify_hostname => 0 ) if $ua->can('ssl_opts');
+
     my $request = HTTP::Request->new( GET => $query_string );
     $request->header( Authorization => $auth_hash );
     my $response = $ua->request( $request );
