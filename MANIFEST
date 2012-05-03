@@ -6,6 +6,7 @@ lib/API/CPanel/Package.pm
 lib/API/CPanel/User.pm
 lib/API/CPanel/Domain.pm
 lib/API/CPanel/Mysql.pm
+lib/API/CPanel/DNS.pm
 Makefile.PL
 MANIFEST			This list of files
 README
