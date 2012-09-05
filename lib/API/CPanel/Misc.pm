@@ -13,10 +13,10 @@ sub reload {
     my $params = shift;
 
     return API::CPanel::action_abstract(
-	params         => $params,
-	func           => 'restartservice',
-	container      => 'restart',
-	allowed_fields => 'service',
+        params         => $params,
+        func           => 'restartservice',
+        container      => 'restart',
+        allowed_fields => 'service',
     );
 }
 

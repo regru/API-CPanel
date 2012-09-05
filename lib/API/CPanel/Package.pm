@@ -32,27 +32,27 @@ sub add {
     my $params = shift;
 
     return API::CPanel::action_abstract(
-	params         => $params,
-	func           => 'addpkg',
-	container      => 'result',
-	allowed_fields =>
-	   'name
-	    featurelist
-	    quota
-	    ip
-	    cgi
-	    frontpage
-	    cpmod
-	    language
-	    maxftp
-	    maxsql
-	    maxpop
-	    maxlst
-	    maxsub
-	    maxpark
-	    maxaddon
-	    hasshell
-	    bwlimit',
+        params         => $params,
+        func           => 'addpkg',
+        container      => 'result',
+        allowed_fields =>
+           'name
+            featurelist
+            quota
+            ip
+            cgi
+            frontpage
+            cpmod
+            language
+            maxftp
+            maxsql
+            maxpop
+            maxlst
+            maxsub
+            maxpark
+            maxaddon
+            hasshell
+            bwlimit',
     );
 }
 
@@ -80,27 +80,27 @@ sub edit {
     my $params = shift;
 
     return API::CPanel::action_abstract(
-	params         => $params,
-	func           => 'editpkg',
-	container      => 'result',
-	allowed_fields =>
-	   'name
-	    featurelist
-	    quota
-	    ip
-	    cgi
-	    frontpage
-	    cpmod
-	    language
-	    maxftp
-	    maxsql
-	    maxpop
-	    maxlst
-	    maxsub
-	    maxpark
-	    maxaddon
-	    hasshell
-	    bwlimit',
+        params         => $params,
+        func           => 'editpkg',
+        container      => 'result',
+        allowed_fields =>
+           'name
+            featurelist
+            quota
+            ip
+            cgi
+            frontpage
+            cpmod
+            language
+            maxftp
+            maxsql
+            maxpop
+            maxlst
+            maxsub
+            maxpark
+            maxaddon
+            hasshell
+            bwlimit',
     );
 }
 
@@ -111,10 +111,10 @@ sub remove {
     my $params = shift;
 
     return API::CPanel::action_abstract(
-	params         => $params,
-	func           => 'killpkg',
-	container      => 'result',
-	allowed_fields => 'pkg',
+        params         => $params,
+        func           => 'killpkg',
+        container      => 'result',
+        allowed_fields => 'pkg',
     );
 }
 
@@ -123,10 +123,10 @@ sub list {
     my $params = shift;
 
     return API::CPanel::action_abstract(
-	params    => $params,
-	func      => 'listpkgs',
-	container => 'package',
-	want_hash => 1,
+        params    => $params,
+        func      => 'listpkgs',
+        container => 'package',
+        want_hash => 1,
     );
 }
 

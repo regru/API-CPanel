@@ -13,11 +13,11 @@ sub list {
     my $params = shift;
 
     return API::CPanel::action_abstract(
-	params       => $params,
-	func         => 'listaccts',
-	container    => 'acct',
-	result_field => 'domain',
-	want_hash    => '1',
+        params       => $params,
+        func         => 'listaccts',
+        container    => 'acct',
+        result_field => 'domain',
+        want_hash    => '1',
     );
 }
 
@@ -90,7 +90,7 @@ sub list_addon_domain {
         func           => 'cpanel',
         want_hash      => '1',
         allowed_fields => '
-    	    user
+                user
             cpanel_xmlapi_module
             cpanel_xmlapi_func
             cpanel_xmlapi_apiversion'

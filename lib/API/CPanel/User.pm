@@ -13,10 +13,10 @@ sub list {
     my $params = shift;
 
     return API::CPanel::fetch_hash_abstract(
-	params       => $params,
-	func         => 'listaccts',
-	container    => 'acct',
-	key_field    => 'user',
+        params       => $params,
+        func         => 'listaccts',
+        container    => 'acct',
+        key_field    => 'user',
     );
 }
 
@@ -25,10 +25,10 @@ sub list_simple {
     my $params = shift;
 
     return API::CPanel::fetch_array_abstract(
-	params       => $params,
-	func         => 'listaccts',
-	container    => 'acct',
-	result_field => 'user',
+        params       => $params,
+        func         => 'listaccts',
+        container    => 'acct',
+        result_field => 'user',
     );
 }
 
@@ -37,15 +37,15 @@ sub active_user_count {
     my $params = shift;
 
     my $result = API::CPanel::fetch_array_abstract(
-	params       => $params,
-	func         => 'listaccts',
-	container    => 'acct',
-	result_field => 'suspendtime',
+        params       => $params,
+        func         => 'listaccts',
+        container    => 'acct',
+        result_field => 'suspendtime',
     );
 
     my $count = 0;
     foreach my $elem ( @$result ) {
-	$count++ if ref $elem eq "HASH";
+        $count++ if ref $elem eq "HASH";
     };
     return $count;
 }
@@ -86,40 +86,40 @@ sub create {
     my $params = shift;
 
     return API::CPanel::action_abstract(
-	params         => $params,
-	func           => 'createacct',
-	container      => 'result',
-	want_hash      => $params->{want_hash},
-	allowed_fields =>
-	   'username
-	    domain
-	    plan
-	    pkgname
-	    savepkg
-	    featurelist
-	    quota
-	    password
-	    ip
-	    cgi
-	    frontpage
-	    hasshell
-	    contactemail
-	    cpmod
-	    maxftp
-	    maxsql
-	    maxpop
-	    maxlst
-	    maxsub
-	    maxpark
-	    maxaddon
-	    bwlimit
-	    customip
-	    language
-	    useregns
-	    hasuseregns
-	    reseller
-	    forcedns
-	    mxcheck',
+        params         => $params,
+        func           => 'createacct',
+        container      => 'result',
+        want_hash      => $params->{want_hash},
+        allowed_fields =>
+           'username
+            domain
+            plan
+            pkgname
+            savepkg
+            featurelist
+            quota
+            password
+            ip
+            cgi
+            frontpage
+            hasshell
+            contactemail
+            cpmod
+            maxftp
+            maxsql
+            maxpop
+            maxlst
+            maxsub
+            maxpark
+            maxaddon
+            bwlimit
+            customip
+            language
+            useregns
+            hasuseregns
+            reseller
+            forcedns
+            mxcheck',
     );
 }
 
@@ -146,26 +146,26 @@ sub edit {
     my $params = shift;
 
     return API::CPanel::action_abstract( 
-	params         => $params,
-	func           => 'modifyacct',
-	container      => 'result',
-	allowed_fields =>
-	   'user
-	    domain
-	    newuser
-	    owner
-	    CPTHEME
-	    HASCGI
-	    LANG
-	    LOCALE
-	    MAXFTP
-	    MAXSQL
-	    MAXPOP
-	    MAXLST
-	    MAXSUB
-	    MAXPARK
-	    MAXADDON
-	    shell',
+        params         => $params,
+        func           => 'modifyacct',
+        container      => 'result',
+        allowed_fields =>
+           'user
+            domain
+            newuser
+            owner
+            CPTHEME
+            HASCGI
+            LANG
+            LOCALE
+            MAXFTP
+            MAXSQL
+            MAXPOP
+            MAXLST
+            MAXSUB
+            MAXPARK
+            MAXADDON
+            shell',
     );
 }
 
@@ -175,10 +175,10 @@ sub delete {
     my $params = shift;
 
     return API::CPanel::action_abstract(
-	params         => $params,
-	func           => 'removeacct',
-	container      => 'result',
-	allowed_fields => 'user',
+        params         => $params,
+        func           => 'removeacct',
+        container      => 'result',
+        allowed_fields => 'user',
     );
 }
 
@@ -188,10 +188,10 @@ sub enable {
     my $params = shift;
 
     return API::CPanel::action_abstract(
-	params         => $params,
-	func           => 'unsuspendacct',
-	container      => 'result',
-	allowed_fields => 'user',
+        params         => $params,
+        func           => 'unsuspendacct',
+        container      => 'result',
+        allowed_fields => 'user',
     );
 }
 
@@ -202,10 +202,10 @@ sub disable {
     my $params = shift;
 
     return API::CPanel::action_abstract(
-	params         => $params,
-	func           => 'suspendacct',
-	container      => 'result',
-	allowed_fields => 'user reason',
+        params         => $params,
+        func           => 'suspendacct',
+        container      => 'result',
+        allowed_fields => 'user reason',
     );
 }
 
@@ -216,10 +216,10 @@ sub change_package {
     my $params = shift;
 
     return API::CPanel::action_abstract(
-	params         => $params,
-	func           => 'changepackage',
-	container      => 'result',
-	allowed_fields => 'user pkg',
+        params         => $params,
+        func           => 'changepackage',
+        container      => 'result',
+        allowed_fields => 'user pkg',
     );
 }
 
@@ -230,10 +230,10 @@ sub change_account_password {
     my $params = shift;
 
     return API::CPanel::action_abstract(
-	params         => $params,
-	func           => 'passwd',
-	container      => 'passwd',
-	allowed_fields => 'user pass',
+        params         => $params,
+        func           => 'passwd',
+        container      => 'passwd',
+        allowed_fields => 'user pass',
     );
 }
 

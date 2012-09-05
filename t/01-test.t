@@ -163,7 +163,7 @@ THEEND
 #$API::CPanel::DEBUG=1;
 my $ip_list = API::CPanel::Ip::list(
     {
-	%correct_params,
+        %correct_params,
     }
 );
 
@@ -201,11 +201,11 @@ THEEND
 
 my $result = API::CPanel::User::create(
     {
-	%correct_params,
-	username    => $manipulate_user,
-	domain      => 'zse1.ru',
-	password    => 'sdfdsGdhd',
-	maxsql      => 11,
+        %correct_params,
+        username    => $manipulate_user,
+        domain      => 'zse1.ru',
+        password    => 'sdfdsGdhd',
+        maxsql      => 11,
     }
 );
 is( $result, 1, 'API::CPanel::User::create' );
@@ -223,10 +223,10 @@ THEEND
 
 $result = API::CPanel::User::create(
     {
-	%correct_params,
-	username    => $manipulate_user,
-	password    => 'sdfdsGdhd',
-	domain      => 'zse1.ru',
+        %correct_params,
+        username    => $manipulate_user,
+        password    => 'sdfdsGdhd',
+        domain      => 'zse1.ru',
     }
 );
 is( $result, '', 'API::CPanel::User::create repeat');
@@ -261,9 +261,9 @@ THEEND
 
 $result = API::CPanel::User::change_account_password(
     {
-	%correct_params,
-	user => $manipulate_user,
-	pass => 'sdfdsfsdfhsdfj',
+        %correct_params,
+        user => $manipulate_user,
+        pass => 'sdfdsfsdfhsdfj',
     }
 );
 is( $result, 1, 'API::CPanel::User::change_account_password');
@@ -310,11 +310,11 @@ THEEND
 
 $result = API::CPanel::User::edit(
     {
-	%correct_params,
-	user     => $manipulate_user,
-	maxsql   => 14,
-	locale   => 'ru',
-	cptheme  => 'x',
+        %correct_params,
+        user     => $manipulate_user,
+        maxsql   => 14,
+        locale   => 'ru',
+        cptheme  => 'x',
     }
 );
 is( $result, 1, 'API::CPanel::User::edit');
@@ -403,7 +403,7 @@ THEEND
 
 my $active_count = API::CPanel::User::active_user_count(
     {
-	%correct_params,
+        %correct_params,
     }
 );
 ok( $result =~ /^\d+$/ , 'API::CPanel::User::active_user_count');
@@ -437,9 +437,9 @@ THEEND
 
 $result = API::CPanel::User::disable(
     {
-	%correct_params,
-	user   => $manipulate_user,
-	reason => 'test reason1',
+        %correct_params,
+        user   => $manipulate_user,
+        reason => 'test reason1',
     }
 );
 is( $result, 1, 'API::CPanel::User::disable');
@@ -528,7 +528,7 @@ THEEND
 
 $result = API::CPanel::User::active_user_count(
     {
-	%correct_params,
+        %correct_params,
     }
 );
 is( $result, $active_count - 1, 'API::CPanel::User::active_user_count');
@@ -555,9 +555,9 @@ THEEND
 
 $result = API::CPanel::User::disable(
     {
-	%correct_params,
-	user   => $manipulate_user,
-	reason => 'test reason2',
+        %correct_params,
+        user   => $manipulate_user,
+        reason => 'test reason2',
     }
 );
 is( $result, 1, 'API::CPanel::User::disable repeat');
@@ -585,16 +585,16 @@ THEEND
 
 $result = API::CPanel::User::enable(
     {
-	%correct_params,
-	user => $manipulate_user,
+        %correct_params,
+        user => $manipulate_user,
     }
 );
 is( $result, 1, 'API::CPanel::User::enable');
 
 $result = API::CPanel::User::enable(
     {
-	%correct_params,
-	user   => $manipulate_user,
+        %correct_params,
+        user   => $manipulate_user,
     }
 );
 is( $result, 1, 'API::CPanel::User::enable repeat');
@@ -658,7 +658,7 @@ THEEND
 
 $result = API::CPanel::User::list(
     {
-	%correct_params,
+        %correct_params,
     }
 );
 ok( ref $result eq 'HASH' && scalar %$result, 'API::CPanel::User::list');
@@ -698,7 +698,7 @@ THEEND
 
 $result = API::CPanel::User::list_simple(
     {
-	%correct_params,
+        %correct_params,
     }
 );
 ok( ref $result eq 'ARRAY' && scalar @$result, 'API::CPanel::User::list_simple');
@@ -716,8 +716,8 @@ THEEND
 
 $result = API::CPanel::Misc::reload(
     {
-	%correct_params,
-	service     => 'httpd',
+        %correct_params,
+        service     => 'httpd',
     }
 );
 is( $result, 1, 'API::CPanel::Misc::reload');
@@ -734,12 +734,12 @@ THEEND
 
 $result = API::CPanel::Package::add(
     {
-	%correct_params,
-	name      => 'Host-343',
-	quota     => 110,
-	frontpage => 1,
-	maxlsts   => 15,
-	maxsql    => 99,
+        %correct_params,
+        name      => 'Host-343',
+        quota     => 110,
+        frontpage => 1,
+        maxlsts   => 15,
+        maxsql    => 99,
     }
 );
 
@@ -774,9 +774,9 @@ THEEND
 
 $result = API::CPanel::User::change_package(
     {
-	%correct_params,
-	user        => $manipulate_user,
-	pkg         => 'Host-343',
+        %correct_params,
+        user        => $manipulate_user,
+        pkg         => 'Host-343',
     }
 );
 
@@ -794,11 +794,11 @@ THEEND
 
 $result = API::CPanel::Package::edit(
     {
-	%correct_params,
-	name        => 'Host-343',
-	quota       => 100,
-	frontpage   => 0,
-	maxlsts     => 45,
+        %correct_params,
+        name        => 'Host-343',
+        quota       => 100,
+        frontpage   => 0,
+        maxlsts     => 45,
     }
 );
 
@@ -889,7 +889,7 @@ THEEND
 
 $result = API::CPanel::Package::list(
     {
-	%correct_params,
+        %correct_params,
     }
 );
 
@@ -908,8 +908,8 @@ THEEND
 
 $result = API::CPanel::Package::remove(
     {
-	%correct_params,
-	pkg         => 'Host-343',
+        %correct_params,
+        pkg         => 'Host-343',
     }
 );
 
@@ -931,9 +931,9 @@ THEEND
 
 $result = API::CPanel::Ip::add(
     {
-	%correct_params,
-	ip      => '192.168.123.150',
-	netmask => '255.255.255.0',
+        %correct_params,
+        ip      => '192.168.123.150',
+        netmask => '255.255.255.0',
     }
 );
 is( $result, 1, 'API::CPanel::Ip::add');
@@ -986,8 +986,8 @@ THEEND
 
 $result = API::CPanel::Ip::remove(
     {
-	%correct_params,
-	ip => '192.168.123.150',
+        %correct_params,
+        ip => '192.168.123.150',
     }
 );
 is( $result, 1, 'API::CPanel::Ip::remove');
@@ -1016,8 +1016,8 @@ THEEND
 
 $result = API::CPanel::User::delete(
     {
-	%correct_params,
-	user => $manipulate_user,
+        %correct_params,
+        user => $manipulate_user,
     }
 );
 is( $result, 1, 'API::CPanel::User::delete');
@@ -1035,8 +1035,8 @@ THEEND
 
 $result = API::CPanel::User::delete(
     {
-	%correct_params,
-	user => $manipulate_user,
+        %correct_params,
+        user => $manipulate_user,
     }
 );
 is( $result, '', 'API::CPanel::User::delete repeat');
