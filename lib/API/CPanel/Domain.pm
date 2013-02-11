@@ -34,9 +34,9 @@ sub change_site_ip {
     );
 }
 
-# Добавить дополнительный домен
+# Удалить дополнительный домен
 # IN:
-#   - domain - The domain name of the addon domain you wish to create. (e.g. sub.example.com).
+#   - domain - The domain name of the addon domain you wish to delete. (e.g. sub.example.com).
 # http://docs.cpanel.net/twiki/bin/view/ApiDocs/Api2/ApiAddonDomain
 sub del_addon_domain {
     my $params = shift;
