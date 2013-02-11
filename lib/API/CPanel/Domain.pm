@@ -36,6 +36,39 @@ sub change_site_ip {
 
 # Добавить дополнительный домен
 # IN:
+#   - domain - The domain name of the addon domain you wish to create. (e.g. sub.example.com).
+# http://docs.cpanel.net/twiki/bin/view/ApiDocs/Api2/ApiAddonDomain
+sub del_addon_domain {
+    my $params = shift;
+
+    $params->{'cpanel_xmlapi_apiversion'} = 2;
+    $params->{'user'} = delete $params->{'do_as_user'};
+
+    $params->{'cpanel_xmlapi_module'} = 'AddonDomain';
+    $params->{'cpanel_xmlapi_func'}   = 'deladdondomain';
+
+    return unless $params->{'user'}      &&
+                  $params->{'domain'};
+
+    my $result = API::CPanel::action_abstract(
+        params         => $params,
+        func           => 'cpanel',
+        want_hash      => '1',
+        allowed_fields => '
+            user 
+            cpanel_xmlapi_module 
+            cpanel_xmlapi_func 
+            cpanel_xmlapi_apiversion 
+            domain
+            pass
+            subdomain',
+    );
+
+    return $result;
+}
+
+# Добавить дополнительный домен
+# IN:
 #   - dir       - The path that will serve as the addon domain's home directory.
 #   - newdomain - The domain name of the addon domain you wish to create. (e.g. sub.example.com).
 #   - pass      - Password to access and edit the addon domain's files.
