@@ -34,14 +34,14 @@ sub list_simple {
 
 # ѕровер€ет, существует ли пользователь
 sub check_user_exists {
-    my ( $params, $user_id ) = @_;
+    my $params = shift;
 
-    return '' unless $params && $user_id;
+    return '' unless $params;
 
     my $ans = API::CPanel::User::list_simple( $params );
 
     foreach my $key ( @{ $ans }  ) {
-        return 1 if $user_id eq $key;
+        return 1 if $params->{user} eq $key;
     }
 
     return '';
