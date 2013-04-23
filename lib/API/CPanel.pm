@@ -444,7 +444,9 @@ sub fetch_hash_abstract {
         container      => $params{container},
         allowed_fields => $params{allowed_fields},
     );
-
+    
+    return '' unless $result;
+    
     my $result_hash = {};
     return $result_hash unless $params{key_field};
     my $key_field   = $params{key_field};
