@@ -32,6 +32,21 @@ sub list_simple {
     );
 }
 
+# ѕровер€ет, существует ли пользователь
+sub check_user_exists {
+    my $params = shift;
+
+    return '' unless $params;
+
+    my $ans = API::CPanel::User::list_simple( $params );
+
+    foreach my $key ( @{ $ans }  ) {
+        return 1 if $params->{user} eq $key;
+    }
+
+    return '';
+}
+
 # ¬озвращает число активных пользователей
 sub active_user_count {
     my $params = shift;
@@ -79,7 +94,7 @@ sub active_user_count {
 # hasuseregns (boolean)	-- Set to 1 if you are using the above option.
 # reseller (boolean)	-- Give reseller privileges to the account.
 # forcedns (boolean)	-- Overwrite current DNS Zone if a DNS Zone already exists.
-# mxcheck (enum)	-- Determines how the server will handle incoming mail for this domain. 
+# mxcheck (enum)	-- Determines how the server will handle incoming mail for this domain.
 
 # According to http://docs.cpanel.net/twiki/bin/view/AllDocumentation/AutomationIntegration/CreateAccount
 sub create {
@@ -145,7 +160,7 @@ sub create {
 sub edit {
     my $params = shift;
 
-    return API::CPanel::action_abstract( 
+    return API::CPanel::action_abstract(
         params         => $params,
         func           => 'modifyacct',
         container      => 'result',
