@@ -55,10 +55,10 @@ sub del_addon_domain {
         func           => 'cpanel',
         want_hash      => '1',
         allowed_fields => '
-            user 
-            cpanel_xmlapi_module 
-            cpanel_xmlapi_func 
-            cpanel_xmlapi_apiversion 
+            user
+            cpanel_xmlapi_module
+            cpanel_xmlapi_func
+            cpanel_xmlapi_apiversion
             domain
             pass
             subdomain',
@@ -94,10 +94,10 @@ sub add_addon_domain {
         func           => 'cpanel',
         want_hash      => '1',
         allowed_fields => '
-            user 
-            cpanel_xmlapi_module 
-            cpanel_xmlapi_func 
-            cpanel_xmlapi_apiversion 
+            user
+            cpanel_xmlapi_module
+            cpanel_xmlapi_func
+            cpanel_xmlapi_apiversion
             dir
             newdomain
             pass
@@ -111,13 +111,13 @@ sub add_addon_domain {
 
 sub list_addon_domain {
     my $params = shift;
-    
+
     $params->{'cpanel_xmlapi_apiversion'} = 2;
     $params->{'user'} = delete $params->{'do_as_user'};
-            
+
     $params->{'cpanel_xmlapi_module'} = 'AddonDomain';
     $params->{'cpanel_xmlapi_func'}   = 'listaddondomains';
-                    
+
     my $result = API::CPanel::action_abstract(
         params         => $params,
         func           => 'cpanel',
@@ -128,8 +128,31 @@ sub list_addon_domain {
             cpanel_xmlapi_func
             cpanel_xmlapi_apiversion'
     );
-                                                                                                            
+
     return $result;
 }
-                                                                                                                
+
+sub list_subdomains {
+    my $params = shift;
+
+    $params->{'cpanel_xmlapi_apiversion'} = 2;
+    $params->{'user'} = delete $params->{'do_as_user'};
+
+    $params->{'cpanel_xmlapi_module'} = 'SubDomain';
+    $params->{'cpanel_xmlapi_func'}   = 'listsubdomains';
+
+    my $result = API::CPanel::action_abstract(
+        params         => $params,
+        func           => 'cpanel',
+        want_hash      => '1',
+        allowed_fields => '
+                user
+            cpanel_xmlapi_module
+            cpanel_xmlapi_func
+            cpanel_xmlapi_apiversion'
+    );
+
+    return $result;
+}
+
 1;
