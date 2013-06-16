@@ -52,6 +52,7 @@ sub add_record {
     my $params = shift;
 
     my $allowed_fields = {
+        AAAA  => 'address class',
         A     => 'address class',
         MX    => 'exchange preference class',
         CNAME => 'cname class',
@@ -76,6 +77,7 @@ sub edit_record {
     my $params = shift;
 
     my $allowed_fields = {
+        AAAA  => 'address class',
         A     => 'address class',
         MX    => 'exchange preference class',
         CNAME => 'cname class',
