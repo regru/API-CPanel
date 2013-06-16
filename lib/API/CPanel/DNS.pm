@@ -6,7 +6,7 @@ use warnings;
 use API::CPanel;
 use Data::Dumper;
 
-our $VERSION = 0.11;
+our $VERSION = 0.12;
 
 # Возвращает дамп зоны (XML API)
 # params: domain
@@ -57,8 +57,10 @@ sub add_record {
         CNAME => 'cname class',
         TXT   => 'txtdata class',
         NS    => 'nsdname class',
-        PTR   => 'name ptdrname class',
+        PTR   => 'ptrdname class',
+        SRV   => 'target port weight priority class',
     }->{$params->{type}};
+
 
     return API::CPanel::action_abstract(
         want_hash      => delete $params->{want_hash},
@@ -79,7 +81,8 @@ sub edit_record {
         CNAME => 'cname class',
         TXT   => 'txtdata class',
         NS    => 'nsdname class',
-        PTR   => 'name ptdrname class',
+        PTR   => 'name ptrdname class',
+        SRV   => 'target port weight priority class',
     }->{$params->{type}};
 
     return API::CPanel::action_abstract(
