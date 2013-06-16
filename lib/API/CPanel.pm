@@ -209,6 +209,7 @@ sub mk_query_to_server {
         warn $content if $DEBUG;
         return $content;
     } else {
+        $API::CPanel::last_answer =  $response->message;
         return '';
     }
 }
@@ -230,7 +231,7 @@ sub parse_answer {
 
     my $deparsed = XMLin( $answer_string, %$parser_params );
     warn Dumper $deparsed if $DEBUG;
-    
+
     return $deparsed ? $deparsed : '';
 }
 
@@ -373,23 +374,23 @@ sub query_abstract {
         );
         warn Dumper $server_answer if $DEBUG;
 
-        if ( $server_answer &&
-             $container &&
-             is_ok( $server_answer->{$container} )
-             ) {
-            $API::CPanel::last_answer = $server_answer->{$container};
-            return $server_answer->{$container};
-        }
-        elsif ( $server_answer &&
-                is_ok( $server_answer ) &&
-                ! $container ) {
-            $API::CPanel::last_answer = $server_answer;
-            return $server_answer;
-        }
+	if ( $server_answer &&
+	     $container &&
+	     is_ok( $server_answer->{$container} )
+	     ) {
+	    $API::CPanel::last_answer = $server_answer->{$container};
+	    return $server_answer->{$container};
+	}
+	elsif ( $server_answer &&
+	        is_ok( $server_answer ) &&
+	        ! $container ) {
+	    $API::CPanel::last_answer = $server_answer;
+	    return $server_answer;
+	}
         else {
             $API::CPanel::last_answer = $server_answer;
-            warn "wrong server answer" if $DEBUG;
-            return '';
+	    warn "wrong server answer" if $DEBUG;
+	    return '';
         };
     } else {
         $API::CPanel::last_answer = 'auth_hash not found';
@@ -403,10 +404,10 @@ sub action_abstract {
     my %params = @_;
 
     my $result = query_abstract(
-        params         => $params{params},
-        func           => $params{func},
-        container      => $params{container},
-        allowed_fields => $params{allowed_fields},
+	params         => $params{params},
+	func           => $params{func},
+	container      => $params{container},
+	allowed_fields => $params{allowed_fields},
     );
 
     return $params{want_hash} && is_success( $result, $params{want_hash} ) ? $result : is_success( $result );
@@ -419,16 +420,16 @@ sub fetch_array_abstract {
     my $result_field = $params{result_field} || '';
     my $result_list = [ ];
     my $result = query_abstract(
-        params         => $params{params},
-        func           => $params{func},
-        container      => $params{container},
-        allowed_fields => $params{allowed_fields},
+	params         => $params{params},
+	func           => $params{func},
+	container      => $params{container},
+	allowed_fields => $params{allowed_fields},
     );
     return $result_list  unless $result;
     $result = [ $result ] if ref $result ne 'ARRAY';
 
     foreach my $elem ( @{ $result } ) {
-        push @$result_list, $result_field ? $elem->{$result_field} : $elem;
+	push @$result_list, $result_field ? $elem->{$result_field} : $elem;
     };
 
     return $result_list;
@@ -439,14 +440,14 @@ sub fetch_hash_abstract {
     my %params = @_;
 
     my $result = query_abstract(
-        params         => $params{params},
-        func           => $params{func},
-        container      => $params{container},
-        allowed_fields => $params{allowed_fields},
+	params         => $params{params},
+	func           => $params{func},
+	container      => $params{container},
+	allowed_fields => $params{allowed_fields},
     );
-    
+
     return '' unless $result;
-    
+
     my $result_hash = {};
     return $result_hash unless $params{key_field};
     my $key_field   = $params{key_field};
