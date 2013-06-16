@@ -6,7 +6,7 @@ use warnings;
 use API::CPanel;
 use Data::Dumper;
 
-our $VERSION = 0.10;
+our $VERSION = 0.11;
 
 # Возвращает дамп зоны (XML API)
 # params: domain
