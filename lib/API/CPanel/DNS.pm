@@ -61,6 +61,7 @@ sub add_record {
     }->{$params->{type}};
 
     return API::CPanel::action_abstract(
+        want_hash      => delete $params->{want_hash},
         params         => $params,
         func           => 'addzonerecord',
         container      => 'result',
@@ -82,6 +83,7 @@ sub edit_record {
     }->{$params->{type}};
 
     return API::CPanel::action_abstract(
+        want_hash      => delete $params->{want_hash},
         params         => $params,
         func           => 'editzonerecord',
         container      => 'result',
@@ -95,6 +97,7 @@ sub remove_record {
     my $params = shift;
 
     return API::CPanel::action_abstract(
+        want_hash      => delete $params->{want_hash},
         params         => $params,
         func           => 'removezonerecord',
         container      => 'result',
