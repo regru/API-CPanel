@@ -35,13 +35,24 @@ sub list_simple {
 # ѕровер€ет, существует ли пользователь
 sub check_user_exists {
     my $params = shift;
+    return '' if !$params || !exists $params->{user};
+    
+    my $user = $params->{user};
+    delete $params->{user};
 
-    return '' unless $params;
-
-    my $ans = API::CPanel::User::list_simple( $params );
-
+    $params->{search} = $user;
+    $params->{searchtype} = 'user';
+    my $ans = API::CPanel::fetch_array_abstract(
+        params       => $params,
+        func         => 'listaccts',
+        container    => 'acct',
+        result_field => 'user',
+        allowed_fields => 'search searchtype'
+    );
+    return '' unless $ans;
+    return 1 if $ans && scalar $ans == 1 && $ans->[0] eq $user;
     foreach my $key ( @{ $ans }  ) {
-        return 1 if $params->{user} eq $key;
+        return 1 if $user eq $key;
     }
 
     return '';

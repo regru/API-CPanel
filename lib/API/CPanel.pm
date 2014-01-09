@@ -20,7 +20,7 @@ use API::CPanel::Package;
 use API::CPanel::Domain;
 use API::CPanel::Mysql;
 
-our $VERSION     = 0.11;
+our $VERSION     = 0.12;
 our $DEBUG       = '';
 our $FAKE_ANSWER = '';
 
