@@ -5,6 +5,7 @@ use warnings;
 use lib qw( ./lib );
 
 use Data::Dumper;
+use Encode;
 
 our $ONLINE;
 
@@ -17,7 +18,7 @@ BEGIN {
 
 my $manipulate_user = 'zsezse';
 
-use Test::More tests => $ONLINE ? 61 : 61;
+use Test::More tests => $ONLINE ? 64 : 64;
 
 my $test_host = $ENV{host} || '127.0.0.1';
 
@@ -58,7 +59,7 @@ is( API::CPanel::mk_query_string( { dddd => 'dfdf' } ), 'dddd=dfdf', $a );
 my $kill_start_end_slashes_test = {
     '////aaa////' => 'aaa',
     'bbb////'     => 'bbb',
-    '////ccc'     => 'ccc', 
+    '////ccc'     => 'ccc',
     ''            => '',
 };
 
@@ -71,9 +72,35 @@ for (keys %$kill_start_end_slashes_test) {
 }
 
 $a = 'mk_full_query_string';
+
+my $query = API::CPanel::mk_full_query_string( {
+        host       => $test_host,
+        allow_http => 1,
+        param1     => 'val1',
+        param2     => 'val2',
+        func       => 'test',
+    } );
+like( $query, qr/param1=val1/, $a );
+like( $query, qr/param2=val2/, $a );
+
+$query =  API::CPanel::mk_full_query_string( {
+        host       => $test_host,
+        param1     => 'val1',
+        param2     => 'val2',
+        func       => 'test',
+    } );
+
+like( $query, qr/param1=val1/, $a );
+like( $query, qr/param2=val2/, $a );
+
+
+$query = API::CPanel::mk_full_query_string({ host => $test_host, func => 'test', dname => Encode::decode( 'cp1251', 'πεγ.πτ' )});
+like($query, qr/\Qdname=%D1%80%D0%B5%D0%B3.%D1%80%D1%84\E/ );
+
+
 is( API::CPanel::mk_full_query_string( {
-        host => $test_host, 
-    } ), 
+        host => $test_host,
+    } ),
     '',
     $a
 );
@@ -82,29 +109,8 @@ is( API::CPanel::mk_full_query_string( {
         host       => $test_host,
         allow_http => 1,
         path       => 'xml-api',
-    } ), 
+    } ),
     '',
-    $a
-);
-
-is(  API::CPanel::mk_full_query_string( {
-        host       => $test_host,
-        allow_http => 1,
-        param1     => 'val1',
-        param2     => 'val2',
-        func       => 'test',
-    } ), 
-    "http://$test_host:2087/xml-api/test?param1=val1&param2=val2",
-    $a
-);
-
-is(  API::CPanel::mk_full_query_string( {
-        host       => $test_host,
-        param1     => 'val1',
-        param2     => 'val2',
-        func       => 'test',
-    } ), 
-    "https://$test_host:2087/xml-api/test?param1=val1&param2=val2",
     $a
 );
 
@@ -999,7 +1005,7 @@ $API::CPanel::FAKE_ANSWER = ! $ONLINE ? <<THEEND : undef;
 Domain: zse1.ru
 ...DoneKilling all processes owned by user......DoneCleaning passwd,shadow,group......DoneRemoving User from Group..........DoneRemoving Web Logs......DoneRemoving Bandwidth Files......DoneRemoving Crontab......DoneRemoving Virtual Hosts...Removed zse1.ru Server at line: 566.
 Removed Entry from httpd.conf
-...DoneRemoving MySQL databases and users......DoneRemoving PostgreSQL databases and users......DoneRemoving System User......DoneRemoving Group......DoneRemoving DNS Entries...zse1.ru =&gt; deleted from www. 
+...DoneRemoving MySQL databases and users......DoneRemoving PostgreSQL databases and users......DoneRemoving System User......DoneRemoving Group......DoneRemoving DNS Entries...zse1.ru =&gt; deleted from www.
 ...DoneRemoving Email Setup...Removing /etc/valiases/zse1.ru
 ...DoneRemoving mailman lists......DoneUpdating Databases......DoneRemoving Counter Data......DoneAdding ip back to the ip address pool...System has 2 free ips.
 ...DoneRemoving users cPanel Databases &amp; Updating......DoneReloading Services......DoneRemoving mail and service configs...

@@ -9,9 +9,11 @@ use LWP::UserAgent;
 #use XML::LibXML;
 use XML::Parser;
 use XML::Simple;
+use URI;
 
 use Data::Dumper;
 use MIME::Base64;
+
 # Main packages
 use API::CPanel::Ip;
 use API::CPanel::User;
@@ -20,9 +22,11 @@ use API::CPanel::Package;
 use API::CPanel::Domain;
 use API::CPanel::Mysql;
 
-our $VERSION     = 0.12;
+our $VERSION     = 0.13;
 our $DEBUG       = '';
 our $FAKE_ANSWER = '';
+
+
 
 =head1 NAME
 
@@ -31,7 +35,7 @@ API::CPanel - interface to the CPanel Hosting Panel API ( http://cpanel.net )
 =head1 SYNOPSIS
 
  use API::CPanel;
- 
+
  my $connection_params = {
     auth_user   => 'username',
     auth_passwd => 'qwerty',
@@ -55,6 +59,8 @@ API::CPanel - interface to the CPanel Hosting Panel API ( http://cpanel.net )
     password  => 'user_password',
     domain    => $dname,
  });
+
+ Note: for IDN domains $dname should be provided in punycode.
 
  # Switch off account:
  my $suspend_result = API::CPanel::user::disable( {
@@ -146,7 +152,7 @@ sub kill_start_end_slashes {
         s/^\/+//sgi;
         s/\/+$//sgi;
     }
-    
+
     return $str;
 }
 
@@ -183,8 +189,10 @@ sub mk_full_query_string {
     $func = kill_start_end_slashes( $func );
 
     my $query_path = ( $allow_http ? 'http' : 'https' ) . "://$host:2087/$path/$func";
+    my $url = URI->new( $query_path );
+    $url->query_form( %{ $params } );
 
-    return %$params ? $query_path . '?' . mk_query_string( $params ) : $query_path;
+    return %$params ? $url->as_string : $query_path;
 }
 
 
@@ -265,7 +273,7 @@ sub filter_hash {
 
     return unless ref $hash eq 'HASH' &&
         ref $allowed_keys eq 'ARRAY';
-    
+
     my $new_hash = { };
 
     foreach my $allowed_key (@$allowed_keys) {
@@ -404,10 +412,10 @@ sub action_abstract {
     my %params = @_;
 
     my $result = query_abstract(
-	params         => $params{params},
-	func           => $params{func},
-	container      => $params{container},
-	allowed_fields => $params{allowed_fields},
+        params         => $params{params},
+        func           => $params{func},
+        container      => $params{container},
+        allowed_fields => $params{allowed_fields},
     );
 
     return $params{want_hash} && is_success( $result, $params{want_hash} ) ? $result : is_success( $result );
@@ -451,7 +459,7 @@ sub fetch_hash_abstract {
     my $result_hash = {};
     return $result_hash unless $params{key_field};
     my $key_field   = $params{key_field};
-    foreach my $each ( @$result ) { 
+    foreach my $each ( @$result ) {
         $result_hash->{$each->{$key_field}} = $each;
     }
 
