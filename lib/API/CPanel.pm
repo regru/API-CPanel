@@ -13,6 +13,7 @@ use URI;
 
 use Data::Dumper;
 use MIME::Base64;
+
 # Main packages
 use API::CPanel::Ip;
 use API::CPanel::User;
@@ -206,7 +207,6 @@ sub mk_query_to_server {
 
     my $ua = LWP::UserAgent->new;
     $ua->ssl_opts( verify_hostname => 0 ) if $ua->can('ssl_opts');
-    $ua->timeout(3) if $DEBUG;
 
     my $request = HTTP::Request->new( GET => $query_string );
     $request->header( Authorization => $auth_hash );
@@ -217,7 +217,6 @@ sub mk_query_to_server {
         warn $content if $DEBUG;
         return $content;
     } else {
-        warn Dumper $response if $DEBUG;
         $API::CPanel::last_answer =  $response->message;
         return '';
     }
