@@ -40,9 +40,9 @@ sub fetchzone {
         container      => 'data',
         allowed_fields => '
             user
-            cpanel_xmlapi_module 
-            cpanel_xmlapi_func 
-            cpanel_xmlapi_apiversion 
+            cpanel_xmlapi_module
+            cpanel_xmlapi_func
+            cpanel_xmlapi_apiversion
             domain',
     );
 }
@@ -72,7 +72,7 @@ sub add_record {
     );
 }
 
-# изменяет записи A, MX, CNAME, NS, PTR
+# изменяет записи A, MX, CNAME, NS, PTR, SOA
 sub edit_record {
     my $params = shift;
 
@@ -85,6 +85,7 @@ sub edit_record {
         NS    => 'nsdname class',
         PTR   => 'name ptrdname class',
         SRV   => 'target port weight priority class',
+        SOA   => 'nsdname rname serial refresh retry expire minimum class',
     }->{$params->{type}};
 
     return API::CPanel::action_abstract(
