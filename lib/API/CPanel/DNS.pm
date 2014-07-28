@@ -52,14 +52,14 @@ sub add_record {
     my $params = shift;
 
     my $allowed_fields = {
-        AAAA  => 'address class',
-        A     => 'address class',
-        MX    => 'exchange preference class',
-        CNAME => 'cname class',
-        TXT   => 'txtdata class',
-        NS    => 'nsdname class',
-        PTR   => 'ptrdname class',
-        SRV   => 'target port weight priority class',
+        AAAA  => 'address class ttl',
+        A     => 'address class ttl',
+        MX    => 'exchange preference class ttl',
+        CNAME => 'cname class ttl',
+        TXT   => 'txtdata class ttl',
+        NS    => 'nsdname class ttl',
+        PTR   => 'ptrdname class ttl',
+        SRV   => 'target port weight priority class ttl',
     }->{$params->{type}};
 
 
@@ -77,15 +77,15 @@ sub edit_record {
     my $params = shift;
 
     my $allowed_fields = {
-        AAAA  => 'address class',
-        A     => 'address class',
-        MX    => 'exchange preference class',
-        CNAME => 'cname class',
-        TXT   => 'txtdata class',
-        NS    => 'nsdname class',
-        PTR   => 'name ptrdname class',
-        SRV   => 'target port weight priority class',
-        SOA   => 'nsdname rname serial refresh retry expire minimum class',
+        AAAA  => 'address class ttl',
+        A     => 'address class ttl',
+        MX    => 'exchange preference class ttl',
+        CNAME => 'cname class ttl',
+        TXT   => 'txtdata class ttl',
+        NS    => 'nsdname class ttl',
+        PTR   => 'name ptrdname class ttl',
+        SRV   => 'target port weight priority class ttl',
+        SOA   => 'mname rname serial refresh retry expire minimum class ttl',
     }->{$params->{type}};
 
     return API::CPanel::action_abstract(
